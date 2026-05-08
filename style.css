@@ -531,6 +531,19 @@ img {
     font-weight: 400;
 }
 
+.signature {
+    position: absolute;
+    bottom: 1.2rem;
+    right: 1.5rem;
+    font-family: var(--font-serif);
+    font-size: 0.85rem;
+    font-style: italic;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.3);
+    z-index: 20;
+    pointer-events: none;
+}
+
 /* Flame Effect */
 .flame-container {
     position: relative;
