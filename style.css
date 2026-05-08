@@ -1,0 +1,995 @@
+/* Reset and Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #05050A;
+    /* Deep dark night */
+    --text-color: #E2E8F0;
+    --accent-color: #38BDF8;
+    /* Bioluminescent cyan */
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+}
+
+body,
+html {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-sans);
+    overflow: hidden;
+    /* Global hidden to prevent double scrolls and horizontal shifts */
+
+    /* Zero-Zoom UX */
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Images shouldn't be draggable */
+img {
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+
+
+/* Presentation Container */
+.scroll-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Section Base */
+.section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.section.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+.content {
+    position: relative;
+    z-index: 10;
+    padding: 2rem;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+}
+
+.section.active .content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#section-2 .content {
+    transition: none;
+    opacity: 1;
+    transform: none;
+}
+
+#section-2 .text-with-sparks {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.section.active#section-2 .text-with-sparks {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#section-2 .text-with-sparks:first-of-type {
+    transition-delay: 0.5s;
+}
+
+#section-2 .text-with-sparks:last-of-type {
+    transition-delay: 5.5s;
+}
+
+/* Text alignments for dynamic feel */
+.content.right {
+    text-align: right;
+    padding-left: 20%;
+}
+
+.content.left {
+    text-align: left;
+    padding-right: 20%;
+}
+
+/* Typography */
+.accent {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+.title {
+    font-family: var(--font-serif);
+    font-size: 4.5rem;
+    font-weight: 400;
+    line-height: 1.1;
+    background: linear-gradient(180deg, #FFFFFF 0%, #A1A1AA 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 2rem;
+}
+
+.story-text {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    line-height: 1.4;
+    font-style: italic;
+    color: #FFFFFF;
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.8);
+}
+
+.finale-title {
+    font-family: var(--font-serif);
+    font-size: 3.5rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+}
+
+.sign-off {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    color: #94A3B8;
+    letter-spacing: 0.05em;
+}
+
+/* Backgrounds & Images */
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.background-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: linear-gradient(to bottom,
+            var(--bg-color) 0%,
+            rgba(5, 5, 10, 0.4) 20%,
+            rgba(5, 5, 10, 0.4) 80%,
+            var(--bg-color) 100%);
+}
+
+/* Hero specific */
+.hero,
+.hero-bg {
+    background: radial-gradient(circle at center, #1E1B4B 0%, var(--bg-color) 70%);
+}
+
+.swipe-spark-text {
+    position: absolute;
+    color: #FEF08A;
+    text-shadow: 0 0 12px rgba(239, 68, 68, 0.8), 0 0 24px rgba(249, 115, 22, 0.5);
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 20;
+    animation: swipeSparkGlow 4s ease-in-out infinite;
+    animation-delay: 4s;
+    /* Show after 4 seconds */
+}
+
+.top-spark-text {
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bottom-spark-text {
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@keyframes swipeSparkGlow {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* Finale specific */
+.finale {
+    background: radial-gradient(circle at center bottom, #312E81 0%, var(--bg-color) 80%);
+}
+
+/* Sparks Effect */
+.sparks-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.text-with-sparks {
+    position: relative;
+    display: inline-block;
+    padding: 20px 40px;
+    margin-top: 1rem;
+}
+
+.text-sparks {
+    overflow: visible;
+    /* allow sparks to float outside the bounding box */
+}
+
+.spark {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #FEF08A;
+    /* Bright yellow center */
+    border-radius: 50%;
+    /* highly difuminated orange-red borders/glow */
+    box-shadow: 0 0 12px 6px rgba(239, 68, 68, 0.8), 0 0 24px 12px rgba(249, 115, 22, 0.5);
+    opacity: 0;
+}
+
+@keyframes sparkTwinkle {
+    0% {
+        opacity: 0;
+        transform: scale(0.1) translate(0, 0);
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    70% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(var(--smax)) translate(var(--tx), var(--ty));
+    }
+}
+
+/* Transitions */
+.story-text {
+    transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-interior {
+    opacity: 0 !important;
+    transform: scale(0.95) translateY(-10px) !important;
+    filter: blur(5px);
+    transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.fade-in {
+    opacity: 1 !important;
+    transform: scale(1) translateY(0) !important;
+    filter: blur(0px);
+}
+
+/* Polaroids */
+.polaroids-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.polaroid {
+    position: absolute;
+    width: 180px;
+    padding: 10px 10px 45px 10px;
+    /* White border, 45px at bottom for text */
+    background: #FFF;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    border-radius: 3px;
+    opacity: 0;
+    /* Start off-screen, big */
+    transform: scale(2.5) translateY(-50vh) rotate(0deg);
+    pointer-events: none;
+}
+
+.polaroid img {
+    width: 100%;
+    height: 160px;
+    /* Square aspect for the image part */
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.polaroid .caption {
+    position: absolute;
+    bottom: 6px;
+    left: 0;
+    width: 100%;
+    font-family: 'Caveat', cursive;
+    font-size: 2rem;
+    line-height: 36px;
+    /* 80% of the 45px bottom space */
+    font-weight: 600;
+    color: #1E293B;
+    /* Dark ink color */
+    text-align: center;
+    letter-spacing: 0.05em;
+    transform: rotate(-2deg);
+    /* slight handwriting tilt */
+}
+
+/* Thrown Animation Classes */
+.polaroid.thrown {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(var(--rot));
+    /* Bouncy drop effect and smooth spread */
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease-out, margin 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.polaroid.p1 {
+    --rot: -12deg;
+    z-index: 1;
+}
+
+.polaroid.p2 {
+    --rot: 6deg;
+    z-index: 2;
+}
+
+.polaroid.p3 {
+    --rot: 18deg;
+    z-index: 3;
+}
+
+/* Spread state (applied after thrown) */
+.polaroid.p1.spread {
+    margin-left: -220px;
+    margin-top: 80px;
+}
+
+.polaroid.p2.spread {
+    margin-left: 0;
+    margin-top: -20px;
+}
+
+.polaroid.p3.spread {
+    margin-left: 220px;
+    margin-top: -60px;
+}
+
+/* Sunrise Section */
+.sunrise-section {
+    background-color: var(--bg-color);
+    /* Start dark */
+}
+
+.sky-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #FF7E5F 0%, #FEB47B 50%, #86A8E7 100%);
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    z-index: 1;
+}
+
+.sunrise-active .sky-background {
+    opacity: 1;
+}
+
+.beam-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.sun-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    /* Above the beam layer */
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.sun {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 100px) scale(0.5);
+    /* Start low and small */
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, #FFFDE4 0%, #F8FFAE 40%, rgba(255, 235, 59, 0) 70%);
+    border-radius: 50%;
+    opacity: 0;
+    box-shadow: 0 0 60px 30px rgba(255, 223, 0, 0.4);
+    transition: all 1.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 2;
+    /* Put sun above the beam */
+}
+
+.sunrise-active .sun {
+    opacity: 1;
+    transform: translate(-50%, -300px) scale(1.5);
+    /* Rise higher and grow */
+}
+
+.light-beam {
+    position: absolute;
+    top: calc(50% - 350px + 120px);
+    /* Start just below the sun's bottom edge */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 350px;
+    height: 65vh;
+    /* Narrow at top (where it exits sun), wide at bottom (spotlight) */
+    clip-path: polygon(42% 0, 58% 0, 100% 100%, 0% 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.3) 25%, rgba(255, 255, 255, 0) 100%);
+    opacity: 0;
+    transition: opacity 1s ease-in-out 1s;
+    /* Fade in after sun rises */
+    pointer-events: none;
+}
+
+.sunrise-active .light-beam {
+    opacity: 1;
+}
+
+/* Specific styling for the spotlight target text */
+.spotlight-target {
+    position: absolute;
+    bottom: 15%;
+    /* Position it near the bottom where the beam ends */
+    width: 100%;
+    text-align: center;
+    padding: 0 2rem;
+    z-index: 10;
+    opacity: 0;
+    /* Hidden initially */
+    transform: translateY(30px);
+    transition: opacity 1.5s ease-in-out 1.5s, transform 1.5s ease-out 1.5s;
+    /* Appear after beam */
+}
+
+.sunrise-active .spotlight-target {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dark-text {
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 12px rgba(249, 115, 22, 0.3);
+    font-size: 2.2rem;
+    font-weight: 400;
+}
+
+/* Flame Effect */
+.flame-container {
+    position: relative;
+    width: 480px;
+    height: 400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.flame {
+    position: relative;
+    width: 240px;
+    height: 320px;
+}
+
+.flame-layer {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    border-radius: 50% 50% 20% 20%;
+    transform-origin: center bottom;
+}
+
+.flame-red {
+    width: 240px;
+    height: 320px;
+    margin-left: -120px;
+    background: radial-gradient(ellipse at center bottom, #EF4444 0%, rgba(239, 68, 68, 0) 70%);
+    animation: flicker1 1.5s ease-in-out infinite;
+}
+
+.flame-orange {
+    width: 184px;
+    height: 260px;
+    margin-left: -92px;
+    background: radial-gradient(ellipse at center bottom, #F97316 0%, rgba(249, 115, 22, 0) 70%);
+    animation: flicker2 2.5s ease-in-out infinite;
+}
+
+.flame-yellow {
+    width: 128px;
+    height: 200px;
+    margin-left: -64px;
+    background: radial-gradient(ellipse at center bottom, #FEF08A 0%, rgba(254, 240, 138, 0) 70%);
+    animation: flicker3 2s ease-in-out infinite;
+}
+
+.flame-white {
+    width: 64px;
+    height: 120px;
+    margin-left: -32px;
+    background: radial-gradient(ellipse at center bottom, #FFFDE4 0%, rgba(255, 253, 228, 0) 70%);
+    animation: flicker1 1.8s ease-in-out infinite;
+}
+
+@keyframes flicker1 {
+
+    0%,
+    100% {
+        transform: scaleX(1) scaleY(1) rotate(-1deg);
+    }
+
+    25% {
+        transform: scaleX(0.9) scaleY(1.05) rotate(1deg);
+    }
+
+    50% {
+        transform: scaleX(1.05) scaleY(0.95) rotate(-2deg);
+    }
+
+    75% {
+        transform: scaleX(0.95) scaleY(1.08) rotate(1.5deg);
+    }
+}
+
+@keyframes flicker2 {
+
+    0%,
+    100% {
+        transform: scaleX(1) scaleY(1) rotate(1deg);
+    }
+
+    30% {
+        transform: scaleX(1.08) scaleY(0.92) rotate(-1.5deg);
+    }
+
+    60% {
+        transform: scaleX(0.92) scaleY(1.06) rotate(2deg);
+    }
+}
+
+@keyframes flicker3 {
+
+    0%,
+    100% {
+        transform: scaleX(1) scaleY(1) rotate(0deg);
+    }
+
+    20% {
+        transform: scaleX(0.85) scaleY(1.1) rotate(-2deg);
+    }
+
+    50% {
+        transform: scaleX(1.1) scaleY(0.9) rotate(1deg);
+    }
+
+    80% {
+        transform: scaleX(0.95) scaleY(1.05) rotate(-1deg);
+    }
+}
+
+/* Glow under the flame */
+.flame-glow {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 480px;
+    height: 100px;
+    background: radial-gradient(ellipse, rgba(249, 115, 22, 0.5) 0%, rgba(249, 115, 22, 0) 70%);
+    border-radius: 50%;
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Ember particles (rising from the flame) */
+.ember-container {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 480px;
+    height: 600px;
+    pointer-events: none;
+    overflow: visible;
+}
+
+.ember {
+    position: absolute;
+    bottom: 40px;
+    width: 4px;
+    height: 4px;
+    background-color: #FEF08A;
+    border-radius: 50%;
+    box-shadow: 0 0 8px 4px rgba(239, 68, 68, 0.6), 0 0 16px 8px rgba(249, 115, 22, 0.3);
+    opacity: 0;
+}
+
+@keyframes emberRise {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(1);
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(var(--ember-tx), var(--ember-ty)) scale(0.3);
+    }
+}
+
+/* ==============================
+   Mobile Responsiveness
+   ============================== */
+
+/* Tablets and large phones (max 768px) */
+@media (max-width: 768px) {
+
+    /* --- Layout & Content --- */
+    .content {
+        padding: 1.2rem 1.5rem;
+        max-width: 100%;
+    }
+
+    .content.right,
+    .content.left {
+        padding: 1.2rem 1.5rem;
+        text-align: center;
+    }
+
+    /* --- Typography --- */
+    .title {
+        font-size: 2.5rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .story-text {
+        font-size: 1.35rem;
+        line-height: 1.5;
+    }
+
+    .finale-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .accent {
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+    }
+
+    .sign-off {
+        font-size: 0.95rem;
+    }
+
+    .dark-text {
+        font-size: 1.2rem;
+        margin-top: 0.5rem !important;
+    }
+
+    /* --- Sparks text wrapper --- */
+    .text-with-sparks {
+        padding: 12px 20px;
+        margin-top: 0.5rem;
+    }
+
+    /* --- Polaroids --- */
+    .polaroids-container {
+        height: 240px;
+        margin-bottom: 1rem;
+    }
+
+    .polaroid {
+        width: 100px;
+        padding: 6px 6px 30px 6px;
+    }
+
+    .polaroid img {
+        height: 90px;
+    }
+
+    .polaroid .caption {
+        font-size: 1.1rem;
+        bottom: 4px;
+        line-height: 22px;
+    }
+
+    /* Tighter spread for narrow screens */
+    .polaroid.p1.spread {
+        margin-left: -110px;
+        margin-top: 40px;
+    }
+
+    .polaroid.p2.spread {
+        margin-left: 0;
+        margin-top: -10px;
+    }
+
+    .polaroid.p3.spread {
+        margin-left: 110px;
+        margin-top: -30px;
+    }
+
+    /* --- Sun & Beam --- */
+    .sun {
+        width: 100px;
+        height: 100px;
+        box-shadow: 0 0 40px 20px rgba(255, 223, 0, 0.4);
+    }
+
+    .sunrise-active .sun {
+        transform: translate(-50%, -200px) scale(1.2);
+    }
+
+    .light-beam {
+        width: 200px;
+        height: 60vh;
+        top: calc(50% - 160px);
+    }
+
+    /* --- Flame --- */
+    .flame-container {
+        width: 280px;
+        height: 240px;
+    }
+
+    .flame {
+        width: 140px;
+        height: 190px;
+    }
+
+    .flame-red {
+        width: 140px;
+        height: 190px;
+        margin-left: -70px;
+    }
+
+    .flame-orange {
+        width: 108px;
+        height: 155px;
+        margin-left: -54px;
+    }
+
+    .flame-yellow {
+        width: 76px;
+        height: 120px;
+        margin-left: -38px;
+    }
+
+    .flame-white {
+        width: 38px;
+        height: 72px;
+        margin-left: -19px;
+    }
+
+    .flame-glow {
+        width: 280px;
+        height: 60px;
+        bottom: -24px;
+    }
+
+    .ember-container {
+        width: 280px;
+        height: 360px;
+    }
+
+    /* --- Spotlight target (flame + text) --- */
+    .spotlight-target {
+        bottom: 10%;
+        padding: 0 1.2rem;
+    }
+}
+
+/* Small phones (max 430px, e.g. iPhone 14 Pro Max and smaller) */
+@media (max-width: 430px) {
+
+    .content {
+        padding: 1rem 1.2rem;
+    }
+
+    .story-text {
+        font-size: 1.2rem;
+    }
+
+    .dark-text {
+        font-size: 1.1rem;
+    }
+
+    .text-with-sparks {
+        padding: 10px 14px;
+    }
+
+    /* Polaroids even tighter */
+    .polaroids-container {
+        height: 200px;
+        margin-bottom: 0.8rem;
+    }
+
+    .polaroid {
+        width: 85px;
+        padding: 5px 5px 26px 5px;
+    }
+
+    .polaroid img {
+        height: 75px;
+    }
+
+    .polaroid .caption {
+        font-size: 0.9rem;
+        line-height: 20px;
+        bottom: 3px;
+    }
+
+    .polaroid.p1.spread {
+        margin-left: -90px;
+        margin-top: 30px;
+    }
+
+    .polaroid.p2.spread {
+        margin-left: 0;
+        margin-top: -5px;
+    }
+
+    .polaroid.p3.spread {
+        margin-left: 90px;
+        margin-top: -25px;
+    }
+
+    /* Sun & Beam tighter */
+    .sun {
+        width: 80px;
+        height: 80px;
+        box-shadow: 0 0 30px 15px rgba(255, 223, 0, 0.4);
+    }
+
+    .sunrise-active .sun {
+        transform: translate(-50%, -170px) scale(1.1);
+    }
+
+    .light-beam {
+        width: 160px;
+        height: 55vh;
+        top: calc(50% - 140px);
+    }
+
+    /* Flame smaller */
+    .flame-container {
+        width: 220px;
+        height: 200px;
+    }
+
+    .flame {
+        width: 120px;
+        height: 160px;
+    }
+
+    .flame-red {
+        width: 120px;
+        height: 160px;
+        margin-left: -60px;
+    }
+
+    .flame-orange {
+        width: 92px;
+        height: 130px;
+        margin-left: -46px;
+    }
+
+    .flame-yellow {
+        width: 64px;
+        height: 100px;
+        margin-left: -32px;
+    }
+
+    .flame-white {
+        width: 32px;
+        height: 60px;
+        margin-left: -16px;
+    }
+
+    .flame-glow {
+        width: 220px;
+        height: 50px;
+        bottom: -20px;
+    }
+
+    .ember-container {
+        width: 220px;
+        height: 300px;
+    }
+
+    .spotlight-target {
+        bottom: 8%;
+        padding: 0 1rem;
+    }
+}
