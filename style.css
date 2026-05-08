@@ -815,70 +815,71 @@ img {
 
     /* --- Sun & Beam --- */
     .sun {
-        width: 100px;
-        height: 100px;
-        box-shadow: 0 0 40px 20px rgba(255, 223, 0, 0.4);
+        width: 140px;
+        height: 140px;
+        box-shadow: 0 0 60px 30px rgba(255, 223, 0, 0.5);
     }
 
+    /* Rise to ~20% from top so sun owns the upper space */
     .sunrise-active .sun {
-        transform: translate(-50%, -200px) scale(1.2);
+        transform: translate(-50%, -270px) scale(1.4);
     }
 
     .light-beam {
-        width: 200px;
-        height: 60vh;
-        top: calc(50% - 160px);
+        width: 140px;
+        height: 42vh;
+        top: calc(50% - 230px);
     }
 
     /* --- Flame --- */
     .flame-container {
-        width: 280px;
-        height: 240px;
+        width: 200px;
+        height: 180px;
     }
 
     .flame {
-        width: 140px;
-        height: 190px;
+        width: 100px;
+        height: 140px;
     }
 
     .flame-red {
-        width: 140px;
-        height: 190px;
-        margin-left: -70px;
+        width: 100px;
+        height: 140px;
+        margin-left: -50px;
     }
 
     .flame-orange {
-        width: 108px;
-        height: 155px;
-        margin-left: -54px;
+        width: 78px;
+        height: 110px;
+        margin-left: -39px;
     }
 
     .flame-yellow {
-        width: 76px;
-        height: 120px;
-        margin-left: -38px;
+        width: 54px;
+        height: 86px;
+        margin-left: -27px;
     }
 
     .flame-white {
-        width: 38px;
-        height: 72px;
-        margin-left: -19px;
+        width: 28px;
+        height: 52px;
+        margin-left: -14px;
     }
 
     .flame-glow {
-        width: 280px;
-        height: 60px;
-        bottom: -24px;
+        width: 200px;
+        height: 50px;
+        bottom: -20px;
     }
 
     .ember-container {
-        width: 280px;
-        height: 360px;
+        width: 200px;
+        height: 300px;
     }
 
     /* --- Spotlight target (flame + text) --- */
     .spotlight-target {
-        bottom: 10%;
+        bottom: 16%;
         padding: 0 1.2rem;
     }
 }
@@ -938,71 +939,71 @@ img {
         margin-top: -25px;
     }
 
-    /* Sun & Beam tighter */
+    /* Sun & Beam — small phones */
     .sun {
-        width: 80px;
-        height: 80px;
-        box-shadow: 0 0 30px 15px rgba(255, 223, 0, 0.4);
+        width: 120px;
+        height: 120px;
+        box-shadow: 0 0 50px 25px rgba(255, 223, 0, 0.5);
     }
 
     .sunrise-active .sun {
-        transform: translate(-50%, -170px) scale(1.1);
+        transform: translate(-50%, -250px) scale(1.3);
     }
 
     .light-beam {
-        width: 160px;
-        height: 55vh;
-        top: calc(50% - 140px);
+        width: 120px;
+        height: 38vh;
+        top: calc(50% - 210px);
     }
 
-    /* Flame smaller */
+    /* Flame — small phones */
     .flame-container {
-        width: 220px;
-        height: 200px;
+        width: 170px;
+        height: 155px;
     }
 
     .flame {
-        width: 120px;
-        height: 160px;
+        width: 86px;
+        height: 120px;
     }
 
     .flame-red {
-        width: 120px;
-        height: 160px;
-        margin-left: -60px;
+        width: 86px;
+        height: 120px;
+        margin-left: -43px;
     }
 
     .flame-orange {
-        width: 92px;
-        height: 130px;
-        margin-left: -46px;
+        width: 66px;
+        height: 95px;
+        margin-left: -33px;
     }
 
     .flame-yellow {
-        width: 64px;
-        height: 100px;
-        margin-left: -32px;
+        width: 46px;
+        height: 74px;
+        margin-left: -23px;
     }
 
     .flame-white {
-        width: 32px;
-        height: 60px;
-        margin-left: -16px;
+        width: 24px;
+        height: 44px;
+        margin-left: -12px;
     }
 
     .flame-glow {
-        width: 220px;
-        height: 50px;
-        bottom: -20px;
+        width: 170px;
+        height: 44px;
+        bottom: -18px;
     }
 
     .ember-container {
-        width: 220px;
-        height: 300px;
+        width: 170px;
+        height: 260px;
     }
 
     .spotlight-target {
-        bottom: 8%;
+        bottom: 14%;
         padding: 0 1rem;
     }
 }
